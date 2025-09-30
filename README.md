@@ -103,6 +103,47 @@ How does soil health score influence corn yield stability across different droug
 4. Stress indicators calculated using established agricultural metrics
 5. Quality control performed to validate ranges and identify outliers
 
+## Data QC -Additional
+
+Data Quality Control (THA2) This section details the quality control (QC) process applied to the primary dataset (all_data.csv) as part of THA2, "Making data usable." The goal of these steps was to clean, standardize, and prepare the data for subsequent exploratory analysis.
+
+### Summary of QC Steps:
+
+Import and Inspection: The raw data was imported and inspected. The dataset was confirmed to be in a structured tabular format with 12376 records and 25 columns, containing relevant variables for the research question (yield, soil properties, climate). Data types and initial categorical values appeared appropriate.
+
+Parsing and Conversion: As the data was already in a standard CSV format and contained within a single file, no complex parsing or merging was required. The 'year' column was converted from an integer to a datetime object to facilitate time-series analysis.
+
+Wrangling:
+
+Leading and trailing whitespace was removed from all string columns to ensure data consistency. A check for duplicate records was performed, and no duplicates were found. Categorical data consistency was verified by examining unique values in key categorical columns. Missing Values: A comprehensive check for missing values was conducted across all columns. Fortunately, no missing values were detected in the dataset.
+
+Outlier Handling: Outliers in numerical columns were identified using the Interquartile Range (IQR) method. To mitigate their influence without removing data, values were capped at the 5th and 95th percentiles. This approach helps to preserve the dataset's size and general distribution while reducing the impact of extreme values.
+
+Cleaned Data:
+
+The result of these QC steps is a cleaned dataset saved as yield_drought_data_cleaned.csv.
+
+Limitations and Future Notes:
+
+While capping outliers is effective for reducing the impact of extreme values, it does involve altering the original data points. For analyses highly sensitive to true extreme values, this alteration might be considered a limitation. If future analysis requires examining the characteristics of the original extreme values, it would be necessary to refer back to the uncapped dataset from an earlier stage. There is no separate list of flagged outliers as they were handled by capping
+
+## EDA Notes
+
+The exploratory data analysis revealed several key patterns and relationships. A strong negative relationship was identified between drought severity (spei.cat) and corn yield (Yield_Mg_ha), where yields consistently decrease as drought conditions worsen. Conversely, a positive correlation was identified between soil health score (Score_Mean) and corn yield, suggesting that higher soil health is associated with higher yields.
+
+A crucial discovery was that the distributions of both Yield_Mg_ha and Score_Mean are not normal. This was confirmed by statistical tests, which means that standard parametric tests (like t-tests or Pearson correlation) cannot be used for future modeling. Additionally, some categorical variables have an unbalanced distribution, with certain categories having far fewer data points than others.
+
+### Limitations and Future Notes
+
+Non-Normal Distributions: The non-normal distribution of Yield_Mg_ha and Score_Mean means that non-parametric statistical tests (e.g., Spearman's correlation, Kruskal-Wallis test) should be used instead of their parametric counterparts.
+
+Outliers: The presence of outliers was confirmed by box plots. While the README notes that these were handled by capping, their potential influence on the results should still be monitored. Future analysis might consider a separate investigation of these extreme values.
+
+Categorical Imbalance: The unequal number of data points across different categories could potentially bias models. It may be necessary to either oversample the minority classes or use a modeling approach that is robust to imbalanced data.
+
+Data Capping: The README file notes that outlier values were capped. This means the original extreme values are not present in the current dataset. For any analysis that requires the full, unaltered range of data, a reference to the original, uncapped dataset would be necessary.
+
+
 ## Usage Rights and Attribution
 
 ### License Terms
@@ -155,27 +196,3 @@ For questions about this dataset or analysis approach, refer to the original pub
 
 ## Acknowledgments
 This work builds upon the original research by Mahmood et al. (2023) and utilizes publicly available datasets from USDA, NOAA, and other government agencies. Climate enhancement methodology follows principles established in agricultural climatology and soil science literature.
-
-## Data QC
-
-Data Quality Control (THA2) This section details the quality control (QC) process applied to the primary dataset (all_data.csv) as part of THA2, "Making data usable." The goal of these steps was to clean, standardize, and prepare the data for subsequent exploratory analysis.
-
-Summary of QC Steps:
-
-Import and Inspection: The raw data was imported and inspected. The dataset was confirmed to be in a structured tabular format with 12376 records and 25 columns, containing relevant variables for the research question (yield, soil properties, climate). Data types and initial categorical values appeared appropriate.
-
-Parsing and Conversion: As the data was already in a standard CSV format and contained within a single file, no complex parsing or merging was required. The 'year' column was converted from an integer to a datetime object to facilitate time-series analysis.
-
-Wrangling:
-
-Leading and trailing whitespace was removed from all string columns to ensure data consistency. A check for duplicate records was performed, and no duplicates were found. Categorical data consistency was verified by examining unique values in key categorical columns. Missing Values: A comprehensive check for missing values was conducted across all columns. Fortunately, no missing values were detected in the dataset.
-
-Outlier Handling: Outliers in numerical columns were identified using the Interquartile Range (IQR) method. To mitigate their influence without removing data, values were capped at the 5th and 95th percentiles. This approach helps to preserve the dataset's size and general distribution while reducing the impact of extreme values.
-
-Cleaned Data:
-
-The result of these QC steps is a cleaned dataset saved as yield_drought_data_cleaned.csv.
-
-Limitations and Future Notes:
-
-While capping outliers is effective for reducing the impact of extreme values, it does involve altering the original data points. For analyses highly sensitive to true extreme values, this alteration might be considered a limitation. If future analysis requires examining the characteristics of the original extreme values, it would be necessary to refer back to the uncapped dataset from an earlier stage. There is no separate list of flagged outliers as they were handled by capping
