@@ -196,3 +196,11 @@ For questions about this dataset or analysis approach, refer to the original pub
 
 ## Acknowledgments
 This work builds upon the original research by Mahmood et al. (2023) and utilizes publicly available datasets from USDA, NOAA, and other government agencies. Climate enhancement methodology follows principles established in agricultural climatology and soil science literature.
+
+## Final Analysis Changes Summary
+
+The core analysis uses a Two-Way Interaction Regression to assess how drought severity (spei_cat) moderates the effect of soil health (Score_Mean) on yield. Methodologically, the model was refined by employing Heteroscedasticity-Consistent (HC3) Standard Errors to ensure reliable $p$-values, explicitly addressing the non-constant variance observed in the diagnostic plots (Residuals vs. Fitted and Q-Q Plot). The primary output is a table and a bar chart of the Conditional Slopes, which quantify the precise yield benefit of soil health under each drought condition.
+
+## Output File Updates
+
+Four distinct visual files are now generated for the final submission. The Final Analysis Dashboard (dashboard.png) displays the conditional slopes, summarizing the main hypothesis test. A new, essential file, the EDA Dashboard (eda_distribution_dashboard.png), was added, containing a 4-panel plot that provides crucial exploratory context on yield distributions. These, along with the two required diagnostic plots (diagnostics_residuals_fitted.png and diagnostics_qq_plot.png), complete the final set of visual deliverables.
